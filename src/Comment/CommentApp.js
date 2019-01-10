@@ -12,7 +12,8 @@ class CommentApp extends React.Component {
             isShowInput:true
         }
         this.getInfo = this.getInfo.bind(this);
-        this.clickHandle=this.clickHandle.bind(this)
+        this.clickHandle=this.clickHandle.bind(this);
+        this.handleDeleteComment=this.handleDeleteComment.bind(this);
     }
     componentWillMount(){
         this._loadCommentList();
@@ -34,6 +35,14 @@ class CommentApp extends React.Component {
             commentList: [...this.state.commentList, comment]
         },()=>{this._saveCommentList()})  
     }
+    handleDeleteComment(index){
+        const commentList=this.state.commentList
+        commentList.splice(index,1);
+        this.setState({
+                commentList
+        })
+        this._saveCommentList();
+    }
     clickHandle(){
         this.setState({
             isShowInput:!this.state.isShowInput
@@ -44,7 +53,7 @@ class CommentApp extends React.Component {
             <div className="wrapper">
             <button onClick={this.clickHandle}>{this.state.isShowInput?'关闭评论输入':'打开评论输入'}</button>
               {this.state.isShowInput?  <CommentInput onSubmit={this.getInfo}/>:null}
-                <CommentList commentList={this.state.commentList} />
+                <CommentList commentList={this.state.commentList} onDeleteComment={this.handleDeleteComment}/>
             </div>
         )
     }

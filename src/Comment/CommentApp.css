@@ -110,7 +110,14 @@ body {
   }
   
   .comment:hover .comment-delete {
-    color: #00a3cf;
+    width: 30px;
+    height: 20px;
+    border-radius:3px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    background-color: #00a3cf;
   }
   
   .comment-delete {
