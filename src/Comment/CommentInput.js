@@ -23,9 +23,9 @@ class CommentInput extends React.Component {
         console.log('component did mount')
         this.textareaDom.focus();
     }
-    componentWillUnmount() {
-        console.log('component will unmount')
-    }
+    // componentWillUnmount() {
+    //     console.log('component will unmount')
+    // }
     shouldComponentUpdate(){
         console.log('should component need update?')
         return true;

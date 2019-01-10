@@ -11,6 +11,7 @@ class CommentList extends React.Component{
                 this.props.onDeleteComment(index);
         }
     }
+
     render(){
         return(
             <div>

@@ -26,6 +26,20 @@ class Comment extends React.Component{
             timeString:duration>60?`${Math.round(duration/60)}分钟前`:`${Math.round(Math.max(duration,1))}秒前`
         })
     }
+    /**
+     * 前5个replace 实际上是把类似于<、>这种内容替换转义一下，防止用户输入HTL标签
+     * 最后一行代码才是实现转换功能的代码
+    */
+    
+    _getProcessedContent (content) {
+        return content
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;")
+          .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
+      }
     handleDelete(){
       if(this.props.onDeleteComment){
           this.props.onDeleteComment(this.props.index)
@@ -37,7 +51,7 @@ class Comment extends React.Component{
                 <div className='comment-user'>
                     <span>{this.props.comment.username}</span>:
                 </div>
-                <p>{this.props.comment.content}</p>
+                <p dangerouslySetInnerHTML={{__html:this._getProcessedContent(this.props.comment.content)}}></p>
                 <span className='comment-createdtime'>
                     {this.state.timeString}
                 </span>
